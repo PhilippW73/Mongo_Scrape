@@ -4,6 +4,8 @@
   </div>
 </div>
 
+
+
 {{#if articles}}
 	<div class="container-fluid">
 	  <div class="row">
@@ -15,12 +17,9 @@
 	              <div class="col-md-12">
 	                <h3><a style="color:white" href="{{this.link}}" class="headline">{{this.headline}}</a></h3>
 	              </div>
-
 	              <div class="col-md-2">
-	                <button class="btn btn-warning" id="comment-button" data-id="{{this._id}}">Comment</button>
-
-	                <button class="btn btn-success" id="save-btn" data-id="{{this._id}}">Save Article</button>
-
+	                <button class="btn btn-warning comment-button" data-id="{{this._id}}">Comment</button>
+	                <button class="btn btn-success" id="unsave-btn" data-id="{{this._id}}">Remove Article</button>
 	              </div>
 	            </div>
 	          </div>
@@ -43,7 +42,7 @@
 <div class="container">
   <h2>Comment</h2>
   <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Notes</button>
+  <button type="button" class="btn btn-comment btn-lg" data-toggle="modal" data-target="#myModal">Notes</button>
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">

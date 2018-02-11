@@ -37,6 +37,10 @@ mongoose.connect("mongodb://localhost/populate", {
 
 // Routes
 
+app.get("/", function(req, res){
+  res.render("index-start");
+})
+
 // A GET route for scraping the echojs website
 app.get("/scrape", function(req, res) {
   // Make a request for the news section of www.zg.ch
@@ -125,6 +129,28 @@ app.post("/articles/:id", function(req, res) {
       res.json(err);
     });
 });
+
+app.post("/articles/save/:id", function (req, res){
+  db.Article.findOneAndUpdate({_id: req.params.id}, {saved: true}).then(function (dbResponse){
+    res.redirect("/articles");
+  })
+})
+
+app.post("/articles/unsave/:id", function (req, res){
+  db.Article.findOneAndUpdate({_id: req.params.id}, {saved: false}).then(function (dbResponse){
+    res.redirect("/savedarticles");
+  })
+})
+
+app.get("/savedarticles", function(req, res) {
+  // TODO: Finish the route so it grabs all of the articles
+    db.Article.find({saved: true}).populate("comments").then(function(data) {
+      res.render("saved", {articles: data});
+    }).catch(function (err) {
+      res.json(err);
+    });
+});
+
 
 // Listen on port 3000
 app.listen(PORT, function() {
