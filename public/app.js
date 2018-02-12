@@ -75,16 +75,18 @@ $(document).ready(function() {
         $("#bodyinput").val("");
     });
 
-    $(document).on("click", "#scrape-btn", function() {
-        $.ajax({
-            method: "GET",
-            url: "/scrape",
-        }).done(function(data) {
-            //window.location = "/articles"
-        })
-    });
+    // $(document).on("click", "#scrape-btn", function() {
+    //     $.ajax({
+    //         method: "GET",
+    //         url: "/scrape",
+    //     }).done(function(data) {
+    //         //window.location = "/articles"
+    //     })
+    // });
 
-    $(document).on("click", "#save-btn", function() {
+    $(document).on("click", "#save-btn", function(event) {
+        event.preventDefault();
+        
         var id = $(this).attr("data-id");
         $.ajax({
             method: "POST",

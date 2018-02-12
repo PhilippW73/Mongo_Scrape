@@ -41,6 +41,8 @@ app.get("/", function(req, res){
   res.render("index-start");
 })
 
+
+
 // A GET route for scraping the echojs website
 app.get("/scrape", function(req, res) {
   // Make a request for the news section of www.zg.ch
@@ -77,7 +79,7 @@ app.get("/scrape", function(req, res) {
           // console.log(result.summary);
     });
     // res.send("Scrape Complete")
-    res.redirect("/")
+    res.redirect("/articles")
   });
 });    
 
@@ -143,7 +145,6 @@ app.post("/articles/unsave/:id", function (req, res){
 })
 
 app.get("/savedarticles", function(req, res) {
-  // TODO: Finish the route so it grabs all of the articles
     db.Article.find({saved: true}).populate("comments").then(function(data) {
       res.render("saved", {articles: data});
     }).catch(function (err) {
