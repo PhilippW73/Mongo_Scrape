@@ -31,9 +31,28 @@ app.set('view engine', 'handlebars');
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/populate", {
-  useMongoClient: true
+
+var databaseUri = "mongodb://localhost/populate";
+
+if(process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI):
+} else {
+  mongoose.connect(databaseUri);
+}
+
+var db = mongoose.connection;
+
+db.on("error", function(err) {
+  console.log("Mongoose Error: ", err);
 });
+
+db.once("open", function () {
+  console.log("Mongoose connection successful.");
+});
+
+// mongoose.connect("mongodb://localhost/populate", {
+//   useMongoClient: true
+// });
 
 // Routes
 
